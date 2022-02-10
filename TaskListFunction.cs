@@ -10,12 +10,14 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
 
 namespace RESTApiWithAzureFunction
 {
     public static class TaskListFunction
     {
-        [FunctionName("CreatePerson")]
+       /* [FunctionName("CreatePerson")]
         public static async Task<IActionResult> CreatePerson(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "task")] HttpRequest req, ILogger log)
         {
@@ -42,12 +44,19 @@ namespace RESTApiWithAzureFunction
             }
             //return new OkResult(cp);
             return new OkObjectResult("inserted successfully !");
-        }
+        }*/
 
         [FunctionName("GetPerson")]
         public static async Task<IActionResult> GetPerson(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "task")] HttpRequest req, ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "task")] HttpRequest req, ILogger log, ExecutionContext context)
         {
+            var config = new ConfigurationBuilder()
+       .SetBasePath(context.FunctionAppDirectory)
+       .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
+       .AddJsonFile("secret.settings.json", optional: true, reloadOnChange: true)
+       .AddEnvironmentVariables()
+       .Build();
+
             List<PersonData> taskList = new List<PersonData>();
             try
             {
@@ -85,7 +94,7 @@ namespace RESTApiWithAzureFunction
             }
         }
 
-        [FunctionName("Getall")]
+       /* [FunctionName("Getall")]
         public static IActionResult Getall(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "task/{ID}")] HttpRequest req, ILogger log, int ID)
         {
@@ -161,6 +170,6 @@ namespace RESTApiWithAzureFunction
                 log.LogError(e.ToString());
             }
             return new OkResult();
-        }
+        }*/
     }
 }

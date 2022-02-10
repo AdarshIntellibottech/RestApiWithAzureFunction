@@ -1,0 +1,8 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+   // "SqlConnectionString": "Server=tcp:prudential-test-server.database.windows.net,1433;Initial Catalog=prudentialDB;Persist Security Info=False;User ID=prudential;Password= Prud@2022 ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
+}  
